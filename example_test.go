@@ -2,8 +2,8 @@ package url_test
 
 import (
 	"fmt"
+	url "github.com/fabioseixas/effective-go-url"
 	"log"
-	"url"
 )
 
 func ExampleURL() {

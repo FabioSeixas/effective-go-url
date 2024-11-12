@@ -65,3 +65,7 @@ func (url *URL) Hostname() string {
 func (url *URL) String() string {
 	return fmt.Sprintf("%s://%s/%s", url.Scheme, url.Host, url.Path)
 }
+
+func (url *URL) testString() string {
+	return fmt.Sprintf("scheme=%q, host=%q, path=%q", url.Scheme, url.Host, url.Path)
+}

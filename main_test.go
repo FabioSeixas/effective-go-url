@@ -29,6 +29,26 @@ func TestParse(t *testing.T) {
 	}
 }
 
+func TestParseComparingStructsInstances(t *testing.T) {
+	rawUrl := "https://foo.com/go"
+
+	u, err := Parse(rawUrl)
+
+	if err != nil {
+		t.Fatalf("Parse(%q) err = %q, want nil", rawUrl, err)
+	}
+
+	want := &URL{
+		Scheme: "https",
+		Host:   "foo.com",
+		Path:   "go",
+	}
+
+	if got := u; *got != *want {
+		t.Errorf("\nParse(%q) \ngot: %s \nwant: %s", rawUrl, got.testString(), want.testString())
+	}
+}
+
 func TestParseWithoutPath(t *testing.T) {
 	rawUrl := "https://foo.com"
 

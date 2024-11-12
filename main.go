@@ -13,16 +13,22 @@ type URL struct {
 	Path   string
 }
 
+func parseScheme(rawurl string) (scheme, rest string, ok bool) {
+	i := strings.Index(rawurl, "://")
+	if i < 1 {
+		return "", "", false
+	}
+	return rawurl[:i], rawurl[i+3:], true
+}
+
 // Parse a raw string into a URL.
 func Parse(raw string) (*URL, error) {
-	index := strings.Index(raw, "://")
-	if index < 0 {
-		return nil, errors.New("invalid Scheme")
+	scheme, rest, ok := parseScheme(raw)
+	if !ok {
+		return nil, errors.New("missing scheme")
 	}
-	scheme, rest := raw[:index], raw[index+3:]
-
 	host, path := rest, ""
-	index = strings.Index(rest, "/")
+	index := strings.Index(rest, "/")
 	if index > 0 {
 		host, path = rest[:index], rest[index+1:]
 	}
